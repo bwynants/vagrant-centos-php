@@ -1,3 +1,4 @@
+# vi: set ft=ruby :
 group { "puppet":
   ensure => "present",
 }
@@ -28,14 +29,25 @@ class {'apache::mod::php': }
 #ensure => stopped, 
 #}
 
-
-#apache::vhost { 'growinglibertydev.com' :
-#  priority => '20',
-#  port => '80',
-#  docroot => $docroot,
-#  configure_firewall => false,
+#service { "iptables":
+#  enable => false,
 #}
 
+
+ firewall { '100 allow http and https access':
+   port   => [80, 443],
+   proto  => tcp,
+   action => accept,
+ }
+
+apache::vhost { 'growinglibertydev.com' :
+  priority => '20',
+  port => '80',
+  docroot => '/var/www/html',
+  configure_firewall => false,
+}
+
+  #configure_firewall => false,
 
 #apache::vhost { 'www.example.com':
 #    priority        => '10',
