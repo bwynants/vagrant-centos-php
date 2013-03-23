@@ -1,12 +1,12 @@
-[submodule "modules/puppetlabs-stdlib"]
-	path = modules/puppetlabs-stdlib
+[submodule "modules/stdlib"]
+	path = modules/stdlib
 	url = git@github.com:puppetlabs/puppetlabs-stdlib.git
-[submodule "modules/puppetlabs-firewall"]
-	path = modules/puppetlabs-firewall
-	url = git@github.com:puppetlabs/puppetlabs-firewall.git
-[submodule "modules/puppetlabs-apache"]
-	path = modules/puppetlabs-apache
+[submodule "modules/apache"]
+	path = modules/apache
 	url = git@github.com:puppetlabs/puppetlabs-apache.git
-[submodule "modules/puppetlabs-mysql"]
-	path = modules/puppetlabs-mysql
+[submodule "modules/mysql"]
+	path = modules/mysql
 	url = git@github.com:puppetlabs/puppetlabs-mysql.git
+[submodule "modules/firewall"]
+	path = modules/firewall
+	url = git@github.com:puppetlabs/puppetlabs-firewall.git
