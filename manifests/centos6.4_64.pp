@@ -15,9 +15,9 @@ package { 'git':
     }
 
 
-include stdlib
-include firewall
-include apache
+include puppetlabs-stdlib
+include puppetlabs-firewall
+include puppetlabs-apache
 
 class {'apache::mod::php': }
 
@@ -34,7 +34,7 @@ apache::vhost { 'growinglibertydev.com' :
   configure_firewall => false,
 }
 
-include mysql
+include puppetlabs-mysql
 #MySQL
 
 #mysql::server
