@@ -10,29 +10,16 @@ file { '/etc/motd':
               Managed by Puppet.\n"
 }
 
+package { 'git':
+    ensure => installed,
+    }
+
+
 include stdlib
 include firewall
 include apache
 
-
-#class apache {
-#  firewall { '100 allow http and https access':
-#    port   => [80, 443],
-#    proto  => tcp,
-#    action => accept,
-#  }
-#}
-
 class {'apache::mod::php': }
-
-#service { 'iptables': 
-#ensure => stopped, 
-#}
-
-#service { "iptables":
-#  enable => false,
-#}
-
 
  firewall { '100 allow http and https access':
    port   => [80, 443],
@@ -47,12 +34,28 @@ apache::vhost { 'growinglibertydev.com' :
   configure_firewall => false,
 }
 
-  #configure_firewall => false,
+include mysql
+#MySQL
 
-#apache::vhost { 'www.example.com':
-#    priority        => '10',
-#    vhost_name      => '192.168.33.10',
-#    port            => '80',
-#    docroot         => '/home/vagrant',
-#}
+#mysql::server
+#
+#Installs mysql-server packages, configures my.cnf and starts mysqld service:
+#Database login information stored in /root/.my.cnf.
+
+class { 'mysql::server':
+  config_hash => { 'root_password' => 'vagrant' }
+}
+
+#mysql::db
+#
+#Creates a database with a user and assign some privileges.
+
+mysql::db { 'mydb':
+  user     => 'vagrant',
+  password => 'vagrant',
+  host     => 'localhost',
+  grant    => ['all'],
+}
+
+
 
