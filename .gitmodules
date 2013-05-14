@@ -16,3 +16,6 @@
 [submodule "modules/puppet-archive"]
 	path = modules/puppet-archive
 	url = git://github.com/smarchive/puppet-archive.git
+[submodule "modules/archive"]
+	path = modules/archive
+	url = git://github.com/smarchive/puppet-archive.git
