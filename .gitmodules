@@ -13,3 +13,6 @@
 [submodule "modules/git"]
 	path = modules/git
 	url = git://github.com/nesi/puppet-git.git
+[submodule "modules/puppet-archive"]
+	path = modules/puppet-archive
+	url = git://github.com/smarchive/puppet-archive.git
