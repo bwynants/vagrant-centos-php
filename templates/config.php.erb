@@ -1,0 +1,12 @@
+<?php if ( !defined( 'HABARI_PATH' ) ) { die( 'No direct access' ); }
+Config::set( 'blog_data', array(
+        'admin_username' => '<%=@blog_data[admin_username]%>',
+        'admin_pass1' => '<%=@blog_data[admin_pass]%>',
+        'admin_pass2' => '<%=@blog_data[admin_pass]%>',
+        'admin_email' => '<%=@blog_data[admin_email]%>',
+        'blog_title' =>  '<%=@blog_data[blog_title]%>',
+        'option_theme_name' => '<%=@blog_data[option_theme_name]%>',
+        'option_theme_dir'  => '<%=@blog_data[option_theme_dir]%>'
+     ));
+?>
+
