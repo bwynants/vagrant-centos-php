@@ -1,6 +1,6 @@
 # vi: set ft=ruby :
 #
-# Note: puppet modules are installed into the modules diretory
+# Note: puppet modules are installed into the modules directory
 # The name convention is author-name, so 
 # https://github.com/smarchive/puppet-archive would need to be 
 # named 'archive' in the modules directory.  A git submodule install 
@@ -20,16 +20,21 @@ file { '/etc/motd':
               Managed by Puppet.\n"
 }
 
+#Just because
 package { 'git':
     ensure => installed,
     }
 
-
+#stdlib is required by many things
 include stdlib
+
+#To be able to control traffic to/from the vm
 include firewall
 
-#include apache
+#Need a web server
 class {'apache':  }
+
+#add php module
 class {'apache::mod::php': }
 
  firewall { '100 allow http and https access':
@@ -38,15 +43,22 @@ class {'apache::mod::php': }
    action => accept,
  }
 
+#Note:
+#docroot is set the same as in Vagrantfile
+#override is set to all to ensure mod_rewrite is working
+#for habari's needs
+#There is a share setup in Vagrantfile to simplify 
+#altering the web content in the vm
 apache::vhost { 'habaridev' :
   priority => '20',
   port => '80',
   docroot => '/var/www/html',
   configure_firewall => false,
+  override => 'All',
 }
 
 #habari
-#create data source
+#create a data source
 class { 'habari_install::mysql':
    root_password        => 'vagrant',
    schema               => 'habari',
