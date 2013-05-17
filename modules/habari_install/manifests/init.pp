@@ -15,7 +15,16 @@
 #get archive habari-0.9 from http://habariproject.org/dist/habari-0.9.zip
 # and expand to /var/www/html
 
-class habari_install ($version = '0.9', $admin_username, $admin_pass, $install_path = '/var/www/html', $admin_email = "", $blog_title = 'My Habari', $option_theme_name = "wazi", $option_theme_dir = "") {
+class habari_install (
+      $db_template_head = '',
+      $version = '0.9', 
+      $admin_username, 
+      $admin_pass, 
+      $install_path = '/var/www/html', 
+      $admin_email = "", 
+      $blog_title = 'My Habari', 
+      $option_theme_name = "wazi", 
+      $option_theme_dir = "") {
 
    $habari_root = "${install_path}/habari-${version}"
    
@@ -54,12 +63,12 @@ class habari_install ($version = '0.9', $admin_username, $admin_pass, $install_p
          mode   => 0755,
    }
    
-#   file {"${habari_root}/config.php":
-#         ensure => file,
-#         content => template('habari_install/config.php.erb'),
-#   }
+   file {"${habari_root}/config.php":
+         ensure => file,
+         content => join([$db_template_head, template('habari_install/config.php.erb')], ''),
+   }
 
    #Make sure that puppet installs habari in order
-   #Package['unzip'] -> Archive["habari-${version}"] -> File["${habari_root}/user/files"] -> File["${habari_root}/user/cache"] -> File["${habari_root}/config.php"]
-   Package['unzip'] -> Archive["habari-${version}"] -> File["${habari_root}/user/files"] -> File["${habari_root}/user/cache"]
+   Package['unzip'] -> Archive["habari-${version}"] -> File["${habari_root}/user/files"] -> File["${habari_root}/user/cache"] -> File["${habari_root}/config.php"]
+   #Package['unzip'] -> Archive["habari-${version}"] -> File["${habari_root}/user/files"] -> File["${habari_root}/user/cache"]
 }

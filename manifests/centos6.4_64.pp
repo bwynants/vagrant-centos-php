@@ -1,4 +1,14 @@
 # vi: set ft=ruby :
+#
+# Note: puppet modules are installed into the modules diretory
+# The name convention is author-name, so 
+# https://github.com/smarchive/puppet-archive would need to be 
+# named 'archive' in the modules directory.  A git submodule install 
+# might look like the following:
+# git submodule add https://github.com/smarchive/puppet-archive modules/archive
+# 
+#
+#
 group { "puppet":
   ensure => "present",
 }
@@ -6,7 +16,7 @@ group { "puppet":
 File { owner => 0, group => 0, mode => 0644 }
 
 file { '/etc/motd':
-  content => "Welcome to your Vagrant-built virtual machine!
+  content => "Welcome to your Vagrant-built Habri virtual machine!
               Managed by Puppet.\n"
 }
 
@@ -17,8 +27,9 @@ package { 'git':
 
 include stdlib
 include firewall
-include apache
 
+#include apache
+class {'apache':  }
 class {'apache::mod::php': }
 
  firewall { '100 allow http and https access':
@@ -27,35 +38,30 @@ class {'apache::mod::php': }
    action => accept,
  }
 
-apache::vhost { 'growinglibertydev.com' :
+apache::vhost { 'habaridev' :
   priority => '20',
   port => '80',
   docroot => '/var/www/html',
   configure_firewall => false,
 }
 
-include mysql
-#MySQL
-
-#mysql::server
-#
-#Installs mysql-server packages, configures my.cnf and starts mysqld service:
-#Database login information stored in /root/.my.cnf.
-
-class { 'mysql::server':
-  config_hash => { 'root_password' => 'vagrant' }
+#habari
+#create data source
+class { 'habari_install::mysql':
+   root_password        => 'vagrant',
+   schema               => 'habari',
+   user                 => 'vagrant',
+   password             => 'vagrant',
+   host                 => 'localhost',
+   prefix               => 'habari__',
 }
 
-#mysql::db
-#
-#Creates a database with a user and assign some privileges.
-
-mysql::db { 'mydb':
-  user     => 'vagrant',
-  password => 'vagrant',
-  host     => 'localhost',
-  grant    => ['all'],
+#install code
+class { 'habari_install':
+   db_template_head     => $habari_install::mysql::template_head,
+   version              => '0.9',
+   admin_username       => 'admin',
+   admin_pass           => 'vagrant',
 }
-
 
 
