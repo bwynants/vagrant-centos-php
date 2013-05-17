@@ -35,6 +35,8 @@ Vagrant.configure("2") do |config|
   # using a specific IP.
   config.vm.network :private_network, ip: "192.168.33.10"
 
+  config.vm.hostname = "habaridev"
+
   # Create a public network, which generally matched to bridged network.
   # Bridged networks make the machine appear as another physical device on
   # your network.
@@ -87,7 +89,8 @@ Vagrant.configure("2") do |config|
     puppet.manifests_path = "manifests"
     puppet.manifest_file  = "centos6.4_64.pp"
     puppet.module_path = "modules"
-    puppet.options = "--verbose"
+    puppet.options = "--verbose --debug"
+
   end
 
 end

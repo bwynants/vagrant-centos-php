@@ -1,0 +1,19 @@
+<?php if ( !defined( 'HABARI_PATH' ) ) { die( 'No direct access' ); }
+Config::set( 'db_connection', array(
+        'connection_string'=>'mysql:host={$db_host};dbname={$db_schema}',
+        'username'=>'{$db_user}',
+        'password'=>'{$db_pass}',
+        'prefix'=>'{$table_prefix}'
+));
+
+Config::set( 'blog_data', array(
+        'admin_username' => '<%= @admin_username %>',
+        'admin_pass1' => '<%= @admin_pass %>',
+        'admin_pass2' => '<%= @admin_pass %>',
+        'admin_email' => '<%= @admin_email %>',
+        'blog_title' =>  '<%= @blog_title %>',
+        'option_theme_name' => '<%= @option_theme_name %>',
+        'option_theme_dir'  => '<%= @option_theme_dir %>'
+     ));
+// Config::set('locale', '{$locale}');
+?>
