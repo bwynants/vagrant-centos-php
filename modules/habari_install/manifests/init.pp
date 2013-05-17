@@ -21,10 +21,10 @@ class habari_install (
       $admin_username, 
       $admin_pass, 
       $install_path = '/var/www/html', 
-      $admin_email = "", 
+      $admin_email = 'myemail@changeme.com', 
       $blog_title = 'My Habari', 
-      $option_theme_name = "wazi", 
-      $option_theme_dir = "") {
+      $option_theme_name = 'wazi', 
+      $option_theme_dir = 'wazi') {
 
    $habari_root = "${install_path}/habari-${version}"
    
