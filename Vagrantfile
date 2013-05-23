@@ -11,7 +11,7 @@ Vagrant.configure("2") do |config|
 
   # The url from where the 'config.vm.box' box will be fetched if it
   # doesn't already exist on the user's system.
-  config.vm.box_url = "http://developer.nrel.gov/downloads/vagrant-boxes/CentOS-6.4-x86_64-v20130309.box"
+  config.vm.box_url = "http://developer.nrel.gov/downloads/vagrant-boxes/centos-6.4-x86_64-v20130309.box"
 
   # we will try to autodetect this path. 
   # However, if we cannot or you have a special one you may pass it like:
@@ -89,7 +89,10 @@ Vagrant.configure("2") do |config|
     puppet.manifests_path = "manifests"
     puppet.manifest_file  = "centos6.4_64.pp"
     puppet.module_path = "modules"
-    puppet.options = "--verbose --debug"
+    puppet.options = "--verbose"
+    
+    #use debug option when troubleshooting an install
+    #puppet.options = "--verbose --debug"
 
   end
 
