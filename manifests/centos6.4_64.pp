@@ -59,7 +59,7 @@ apache::vhost { 'habaridev' :
 
 #habari
 #create a data source
-class { 'habari_install::mysql':
+class { 'habari::mysql':
    root_password        => 'vagrant',
    schema               => 'habari',
    user                 => 'vagrant',
@@ -69,9 +69,9 @@ class { 'habari_install::mysql':
 }
 
 #install code
-class { 'habari_install':
-   db_template_head     => $habari_install::mysql::template_head,
-   version              => '0.9',
+class { 'habari':
+   db_template_head     => $habari::mysql::template_head,
+   version              => '0.9.1',
    admin_username       => 'admin',
    admin_pass           => 'vagrant',
 }

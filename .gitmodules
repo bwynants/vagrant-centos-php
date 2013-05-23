@@ -19,3 +19,6 @@
 [submodule "modules/archive"]
 	path = modules/archive
 	url = git://github.com/smarchive/puppet-archive.git
+[submodule "modules/habari"]
+	path = modules/habari
+	url = git://github.com/mmynsted/mmynsted-habari.git
