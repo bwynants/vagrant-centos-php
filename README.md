@@ -1,8 +1,48 @@
 Vagrant-CentOS-PHP
 ===================
 
-This project is a simple base vagrant box for use as a LAMP stack, a Linux based server to 
-host Apache, MySQL, and PHP.  
+This project provides a [Vagrant](http://www.vagrantup.com/ "Vagrant") box for use as a 
+LAMP stack, a Linux based server to host Apache, MySQL, and PHP.  
+
+The goal is to make it quick and simple to create and manage one or more development environments for 
+[Habari](http://habariproject.org "Habari").  In this example Vagrant is operating on top of 
+[VirtualBox](https://www.virtualbox.org/ "VirtualBox").  VirtualBox makes it possible to create 
+a virtual server that can be built, copied, backed-up, transported to other hosts, stopped and resumed. 
+Such a virtual server can take snapshots before important changes to permit roll-back, or to 
+repeat specific tests.
+
+Vagrant is used to create a virtual machine to serve as a base to be hosted by VirtualBox.  Think of it 
+as a nice way to throw up a new virtual machine with the latest version of Habari.  After the VM exists 
+it can be cloned inside VirtualBox to a VM that is no longer tied to Vagrant, or can be used directly 
+through Vagrant.
+
+All this means is that if you have one or more Habari based sites, you can quickly test your sites in 
+a repeatable and portable fashion.  Want to know how your site will work with a new version of Habari, 
+well make a new VM with that version and find out.  :-)
+
+If you find this useful please consider contributing enhancements back to this project.
+
+Quick Start
+-----------
+
+0. Install Vagrant, as per instructions [here](http://docs.vagrantup.com/v2/getting-started)
+
+0. Read about VirtualBox [here](https://www.virtualbox.org/wiki/Documentation)
+
+0. Fork this repository then create a local clone of that fork.
+
+0. Use Vagrant to install the ``centos6.4_64`` base box.
+   
+            $ vagrant box add centos6.4_64 \
+            http://developer.nrel.gov/downloads/vagrant-boxes/centos-6.4-x86_64-v20130309.box
+
+0. Move into the directory of your locally forked version of ``Vagrant-CentOS-PHP`` and fire up the 
+   box.
+ 
+            $ cd vagrant-centos-php 
+            $ vagrant up
+
+0. Enjoy
 
 Habari
 ------
@@ -15,7 +55,7 @@ It is using a custom Habari Puppet module that can be found
 Base
 ----
 
-The Vagrant base box is currently set to a CentOS box that would need to be locally named ``centos6.4_64``. 
+The Vagrant base box is currently set to a CentOS flavor that would need to be locally named ``centos6.4_64``. 
 It can be found [here](http://developer.nrel.gov/downloads/vagrant-boxes/centos-6.4-x86_64-v20130309.box), though
 other CentOS base boxes should work fine.  Check [vagrantbox.es](http://www.vagrantbox.es "vagrantbox.es") 
 for other bases box candidates or make your own.
