@@ -97,7 +97,8 @@ problems.
 	- Select *reinitialize the mac addresses...*
 	- Select *full clone*
 	- Select *current machine state*
-0. Manually update the ``HWADDR`` in ``/etc/sysconfig/network-scripts/ifcfg-eth0`` to match the newly created mac address.  
+0. Manually update the ``HWADDR`` in ``/etc/sysconfig/network-scripts/ifcfg-eth0``, in the clone, to match its newly created mac address.  
+Do this by starting the newly created clone from VirtualBox and login the same way you did when altering original VM.
 The mac address is shown in the network tab for the network device.
 Be sure to enter the mac address using the format with ``:`` between each two characters as is shown with the existing mac address. 
 
