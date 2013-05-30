@@ -31,10 +31,10 @@ Quick Start
 
 0. Fork this repository then create a local clone of that fork.
 
-0. Use Vagrant to install the ``centos6.4_64`` base box.
+0. Use Vagrant to install the ``centos6.4_64.2`` base box.
    
-            $ vagrant box add centos6.4_64 \
-            http://developer.nrel.gov/downloads/vagrant-boxes/centos-6.4-x86_64-v20130309.box
+            $ vagrant box add centos6.4_64.2 \
+            http://developer.nrel.gov/downloads/vagrant-boxes/CentOS-6.4-x86_64-v20130427.box
 
 0. Move into the directory of your locally forked version of ``Vagrant-CentOS-PHP`` and fire up the 
    box.
@@ -67,9 +67,40 @@ Known Issues
 ------------
 
 * The VM will complain that ``No guest additions were detected on the base box for this VM! . . .``.  If this 
-  proves to be a problem, then install guest additions or try a different base box.
+  proves to be a problem, then install guest additions or try a different base box.  This could be because 
+  the box does not contain X and guest additions would normally alter X.  The cause is unclear at this time.
 
 * The time shown in the VM is likely incorrect.  
+
+Cloning in VirtualBox
+---------------------
+
+It can be useful to clone the Vagrant box to a new VM to separate it from Vagrant control.
+  
+An example would be building a Habari box, then cloning that box so the clone can be used 
+to test a particular site.  Vagrant would no longer needed and the VM could be managed and customized
+in any way desired from VirtualBox.  The Vagrant project would then be free to make new VMs, 
+perhaps with different versions of Habari, without damaging the newly created clone.
+
+When cloning the CentOS box in VirtualBox, you should do the following to avoid potential networking 
+problems.
+
+0. Take a *snapshot* of the original VM from VirtualBox
+0. Start the original VM from VirtualBox and login using the credentials identified in the ``Vagrantfile``
+0. Remove existing persistent network rules
+            
+            sudo rm /etc/udev/rules.d/70-persistent-net.rules
+0. Halt box and exit
+
+            sudo halt
+0. Use VirtualBox to make a clone of the original to a new VM with a distinct name 
+	- Select *reinitialize the mac addresses...*
+	- Select *full clone*
+	- Select *current machine state*
+0. Manually update the ``HWADDR`` in ``/etc/sysconfig/network-scripts/ifcfg-eth0`` to match the newly created mac address.  
+The mac address is shown in the network tab for the network device.
+Be sure to enter the mac address using the format with ``:`` between each two characters as is shown with the existing mac address. 
+
 
 
 Copyright and License
