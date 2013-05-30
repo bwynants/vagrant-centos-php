@@ -55,8 +55,8 @@ It is using a custom Habari Puppet module that can be found
 Base
 ----
 
-The Vagrant base box is currently set to a CentOS flavor that would need to be locally named ``centos6.4_64``. 
-It can be found [here](http://developer.nrel.gov/downloads/vagrant-boxes/centos-6.4-x86_64-v20130309.box), though
+The Vagrant base box is currently set to a CentOS flavor that would need to be locally named ``centos6.4_64.2``. 
+It can be found [here](http://developer.nrel.gov/downloads/vagrant-boxes/CentOS-6.4-x86_64-v20130427.box), though
 other CentOS base boxes should work fine.  Check [vagrantbox.es](http://www.vagrantbox.es "vagrantbox.es") 
 for other bases box candidates or make your own.
 
