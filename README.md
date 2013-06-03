@@ -75,7 +75,7 @@ Known Issues
 Cloning in VirtualBox
 ---------------------
 
-It can be useful to clone the Vagrant box to a new VM to separate it from Vagrant control.
+It can be useful to clone the Vagrant box to a new VM to separate it from Vagrant control.  
   
 An example would be building a Habari box, then cloning that box so the clone can be used 
 to test a particular site.  Vagrant would no longer needed and the VM could be managed and customized
@@ -102,6 +102,28 @@ Do this by starting the newly created clone from VirtualBox and login the same w
 The mac address is shown in the network tab for the network device.
 Be sure to enter the mac address using the format with ``:`` between each two characters as is shown with the existing mac address. 
 
+0. Fix VirtualBox shares.  Vagrant is no longer mounting the shares, so you will need to ensure they are established and mounted correctly.  
+   Without action they will still mirror the parent and that is likely **not** what you want.
+   The most imporant share is the *docroot*.  It is likely the reason you elected to clone out the VM in the first place.
+   - Create a directory to keep the docroot for this new clone, for example a new directory called ``myclone`` in your ``~/projects`` directory.
+   - Copy the docroot from the parent of the clone to the newly created directory.  In a terminal in from the ``vagrant-centos-php`` directory...
+         
+            cp -r docroot ~/projects/myclone/
+   - Now edit the *shares* in VirtualBox for your clone.  Make sure that the ``/var/www/html`` share points to your new location ``~/projects/myclone/docroot``.
+   - Edit the ``/etc/fstab`` to automatically mount the ``/var/www/html`` share.  In this example the mount is using the *vagrant* user and group credentials in read-write mode. 
+
+            /var/www/html           /var/www/html           vboxsf  uid=501,gid=501,rw      0 0
+   If you ssh into your new clone and look at the ``/var/www/html`` directory you should see something like the following.
+
+            [vagrant@habaridev ~]$ ls -lrtha /var/www/html
+            total 18K
+            drwxr-xr-x 6 root    root    4.0K May 30 01:20 ..
+            -rw-r--r-- 1 vagrant vagrant  270 Jun  3 19:56 test.php
+            -rw-r--r-- 1 vagrant vagrant 7.9K Jun  3 19:56 requirements.php
+            -rw-r--r-- 1 vagrant vagrant  103 Jun  3 19:56 index.html
+            drwxr-xr-x 1 vagrant vagrant   11 Jun  3 19:56 habari-0.9.1
+            drwxr-xr-x 1 vagrant vagrant    6 Jun  3 21:31 .
+            [vagrant@habaridev ~]$
 
 
 Copyright and License
